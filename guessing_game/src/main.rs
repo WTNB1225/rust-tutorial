@@ -2,6 +2,26 @@ use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
 
+pub struct Guess {
+    value: i32,
+}
+
+impl Guess {
+    pub fn new(value: i32) -> Guess {
+        if value < 1 || value > 100 {
+            panic!("予想値は1から100の間でなければなりませんが、{}でした", value);
+        }
+
+        Guess {
+            value
+        }
+    }
+
+    pub fn value(&self) -> i32 {
+        self.value
+    }
+}
+
 fn main() {
     println!("数字を当ててみてください");
 
@@ -22,6 +42,11 @@ fn main() {
             Ok(num) => num,
             Err(_) => continue,
         };
+    
+        if guess < 1 || guess > 100 {
+            println!("数字を1から100の間で入力してください");
+            continue;
+        }
     
         println!("あなたの予想: {}", guess);
     
